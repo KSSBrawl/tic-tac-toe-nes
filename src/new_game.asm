@@ -38,12 +38,9 @@
 
 	; reset board squares array
 	lda	#$ff
-	sta	work
 	ldx	#008
 @squares_init_loop:
 	sta	board_squares,x
-	lda	work
-	dec	work
 	dex
 	bpl	@squares_init_loop
 
