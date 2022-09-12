@@ -1,0 +1,6 @@
+**/*.o
+**/*.d
+tictactoe.nes
+tictactoe.nes.ram.nl
+tictactoe.nes.0.nl
+syms.txt
