@@ -1,0 +1,2 @@
+# tic-tac-toe-nes
+A simple tic-tac-toe game for the NES. Builds with the cc65 toolchain (https://github.com/cc65/cc65).
