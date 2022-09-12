@@ -94,21 +94,18 @@
 	php
 	pha
 
-	lda	#0
-	sta	nmi_switch
-
-	lda	#$00
-	sta	OAMADDR
-	lda	#$02
-	sta	OAMDMA
-
 	jsr	upload_ppu_buf
 	lda	#0
 	sta	ppu_upload_buf_ptr
 	sta	ppu_upload_buf		; mark upload buffer as empty
 
+	sta	nmi_switch
+
+	sta	OAMADDR
+	lda	#$02
+	sta	OAMDMA
+
 	bit	PPUSTATUS		; reset address latch
-	lda	#0
 	sta	PPUSCROLL
 	sta	PPUSCROLL
 	lda	#%10000000
@@ -153,11 +150,11 @@
 	bcc	@loop
 
 	lda	work
-	pha
+	sta	work+2
 	eor	joy_held		; mask out buttons held on previous frame
 	and	work			; mask out buttons erroneously set by previous instruction
 	sta	joy_pressed
-	pla
+	lda	work+2
 	sta	joy_held
 	rts
 .endproc
