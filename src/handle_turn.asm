@@ -75,7 +75,7 @@ check_win:
 	lda	win_check_tab,x
 	pha
 
-	rts
+	rts				; jump to win check subroutine
 
 check_if_game_over:
 	lda	game_state

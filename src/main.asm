@@ -60,8 +60,7 @@
 	jsr	handle_turn
 	jmp	@mark_end_of_ppu_buf
 @game_over:
-	lda	#1
-	sta	print_text_flag
+	jsr	prepare_text
 @mark_end_of_ppu_buf:
 	ldx	ppu_upload_buf_ptr
 	lda	#0
@@ -73,17 +72,6 @@
 	lda	nmi_switch
 	bne	@wait_for_nmi
 
-	lda	print_text_flag
-	beq	@no_print_win_text
-	jsr	prepare_text
-	dec	print_text_flag
-
-	lda	#1
-	sta	nmi_switch
-@wait_for_nmi_2:
-	lda	nmi_switch
-	bne	@wait_for_nmi_2
-@no_print_win_text:
 	jmp	main
 .endproc
 
@@ -99,15 +87,16 @@
 	sta	ppu_upload_buf_ptr
 	sta	ppu_upload_buf		; mark upload buffer as empty
 
-	sta	nmi_switch
+	sta	nmi_switch		; = 0
+
+	bit	PPUSTATUS		; reset address latch
+	sta	PPUSCROLL
+	sta	PPUSCROLL
 
 	sta	OAMADDR
 	lda	#$02
 	sta	OAMDMA
 
-	bit	PPUSTATUS		; reset address latch
-	sta	PPUSCROLL
-	sta	PPUSCROLL
 	lda	#%10000000
 	sta	PPUCTRL
 	
@@ -150,11 +139,11 @@
 	bcc	@loop
 
 	lda	work
-	sta	work+2
+	pha
 	eor	joy_held		; mask out buttons held on previous frame
 	and	work			; mask out buttons erroneously set by previous instruction
 	sta	joy_pressed
-	lda	work+2
+	pla
 	sta	joy_held
 	rts
 .endproc

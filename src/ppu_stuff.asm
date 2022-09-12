@@ -35,26 +35,26 @@ obj_palette:
 ;=================================================
 
 .proc upload_ppu_buf
-	ldy	#0
+	ldx	#0
 @loop:
-	lda	ppu_upload_buf,y
+	lda	ppu_upload_buf,x
 	bne	@not_end_of_buf
 	beq	@done
 @not_end_of_buf:
-	iny
-	tax
+	inx
+	tay
 	bit	PPUSTATUS		; reset address latch
-	lda	ppu_upload_buf,y
-	iny
+	lda	ppu_upload_buf,x
+	inx
 	sta	PPUADDR
-	lda	ppu_upload_buf,y
-	iny
+	lda	ppu_upload_buf,x
+	inx
 	sta	PPUADDR
 @entry_loop:
-	lda	ppu_upload_buf,y
-	iny
+	lda	ppu_upload_buf,x
+	inx
 	sta	PPUDATA
-	dex
+	dey
 	bpl	@entry_loop
 	bne	@loop			; x = $ff, unconditional branch
 @done:
