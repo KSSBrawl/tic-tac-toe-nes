@@ -26,9 +26,9 @@
 	rts
 
 bg_palette:
-	.byte	$0f,$02,$06,$20
+	.byte	COL_BLACK, COL_BLUE1, COL_RED1, COL_WHITE1
 obj_palette:
-	.byte	$00,$00,$00
+	.byte	COL_GRAY1, COL_GRAY1, COL_GRAY1
 .endproc
 
 ;=================================================

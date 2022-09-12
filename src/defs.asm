@@ -69,6 +69,81 @@
 .define JOY2		$4017
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Color palette constants
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+.define COL_GRAY1	$00
+.define COL_GRAY2	$10
+
+.define COL_WHITE1	$20
+.define COL_WHITE2	$30
+
+.define COL_BLUE1	$01
+.define COL_BLUE2	$11
+.define COL_BLUE3	$21
+.define COL_BLUE4	$31
+
+.define COL_BLUE5	$02
+.define COL_BLUE6	$12
+.define COL_BLUE7	$22
+.define COL_BLUE8	$32
+
+.define COL_PURPLE1	$03
+.define COL_PURPLE2	$13
+.define COL_PURPLE3	$23
+.define COL_PURPLE4	$33
+
+.define COL_MAGENTA1	$04
+.define COL_MAGENTA2	$14
+.define COL_MAGENTA3	$24
+.define COL_MAGENTA4	$34
+
+.define COL_PINK1	$05
+.define COL_PINK2	$15
+.define COL_PINK3	$25
+.define COL_PINK4	$35
+
+.define COL_RED1	$06
+.define COL_RED2	$16
+.define COL_RED3	$26
+.define COL_RED4	$36
+
+.define COL_ORANGE1	$07
+.define COL_ORANGE2	$17
+.define COL_ORANGE3	$27
+.define COL_ORANGE4	$37
+
+.define COL_YELLOW1	$08
+.define COL_YELLOW2	$18
+.define COL_YELLOW3	$28
+.define COL_YELLOW4	$38
+
+.define COL_LIME1	$09
+.define COL_LIME2	$19
+.define COL_LIME3	$29
+.define COL_LIME4	$39
+
+.define COL_GREEN1	$0a
+.define COL_GREEN2	$1a
+.define COL_GREEN3	$2a
+.define COL_GREEN4	$3a
+
+.define COL_GREEN5	$0b
+.define COL_GREEN6	$1b
+.define COL_GREEN7	$2b
+.define COL_GREEN8	$3b
+
+.define COL_CYAN1	$0c
+.define COL_CYAN2	$1c
+.define COL_CYAN3	$2c
+.define COL_CYAN4	$3c
+
+.define COL_GRAY3	$2d
+.define COL_GRAY4	$3d
+
+.define COL_BLACK	$0f
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Game-specific defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
