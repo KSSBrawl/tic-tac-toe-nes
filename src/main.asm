@@ -34,6 +34,11 @@ vblank2:
 	bit	PPUSTATUS
 	bpl	vblank2
 
+	lda	#$0f
+	sta	SNDCHN
+	lda	#$40
+	sta	APUFRAME
+
 	lda	#%10000000
 	sta	PPUCTRL
 
@@ -66,6 +71,7 @@ mark_end_of_ppu_buf:
 	lda	#0
 	sta	ppu_upload_buf_ptr,x
 
+	jsr	sound_engine
 	lda	#1
 	sta	nmi_switch
 wait_for_nmi:
@@ -119,6 +125,7 @@ wait_for_nmi:
 .include "handle_turn.asm"
 .include "new_game.asm"
 .include "ppu_stuff.asm"
+.include "sound.asm"
 
 ;=================================================
 ;=================================================

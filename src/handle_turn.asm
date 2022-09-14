@@ -55,6 +55,8 @@ try_fill:
 	lda	turn
 	and	#$01
 	sta	board_squares,x
+	lda	#SFX_FILL_SQUARE
+	sta	sq1_sfx_queue
 	lda	last_square
 	jsr	prepare_square
 
@@ -79,6 +81,7 @@ check_win:
 
 check_if_game_over:
 	lda	game_state
+	sta	sq2_sfx_queue
 	bne	done2
 
 ; check for a draw
@@ -88,8 +91,9 @@ check_if_game_over:
 .endrep
 	lda	#2
 	sta	game_state
+	sta	sq2_sfx_queue
 	bne	done2			; unconditional jump
-done2:	
+done2:
 	rts
 
 win_check_tab:

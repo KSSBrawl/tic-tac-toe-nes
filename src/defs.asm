@@ -144,11 +144,55 @@
 .define COL_BLACK	$0f
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; APU length counter constants
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;
+.define APU_LC_254	$01 << 3
+.define APU_LC_020	$02 << 3
+.define APU_LC_002	$03 << 3
+.define APU_LC_040	$04 << 3
+.define APU_LC_004	$05 << 3
+.define APU_LC_080	$06 << 3
+.define APU_LC_006	$07 << 3
+.define APU_LC_160	$08 << 3
+.define APU_LC_008	$09 << 3
+.define APU_LC_060	$0a << 3
+; duplicate 010
+.define APU_LC_014	$0c << 3
+; duplicate 012
+.define APU_LC_026	$0e << 3
+; duplicate 014
+; duplicate 012
+.define APU_LC_016	$11 << 3
+.define APU_LC_024	$12 << 3
+.define APU_LC_018	$13 << 3
+.define APU_LC_048	$14 << 3
+; duplicate 020
+.define APU_LC_096	$16 << 3
+.define APU_LC_022	$17 << 3
+.define APU_LC_192	$18 << 3
+; duplicate 024
+.define APU_LC_072	$1a << 3
+; duplicate 026
+; duplicate 016
+.define APU_LC_028	$1d << 3
+.define APU_LC_032	$1e << 3
+.define APU_LC_030	$1f << 3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Game-specific defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 .define game_over_text_len	.strlen("PLAYER 1 WINS!")
 .define game_over_text_nt_addr	$2000+9+(32*18)
 .define board_nt_addr		$2000+9+(32* 2)
+
+.define SFX_MOVE_CURSOR		%00000001
+.define SFX_INVALID_ACTION	%00000010
+.define SFX_FILL_SQUARE		%00000100
+
+.define	SFX_WIN			%00000001
+.define SFX_STALEMATE		%00000010
 
 .endif

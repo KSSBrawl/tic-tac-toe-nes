@@ -23,6 +23,12 @@ ppu_upload_buf_ptr:		.res 1
 joy_pressed:			.res 1
 joy_held:			.res 1
 
+sq1_sfx_timer:			.res 1
+sq1_sfx_queue:			.res 1
+sq2_sfx_timer:			.res 1
+sq2_sfx_queue:			.res 1
+sq2_sfx_buf:			.res 1
+
 .bss
 
 oam:				.res 256

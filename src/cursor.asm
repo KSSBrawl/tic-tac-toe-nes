@@ -1,23 +1,37 @@
 .macro inc_cursor_pos var1, var2, exit_label
+.local set_cursor_sfx_sound, cant_move_cursor
 	lda	var1
 	cmp	#2
-	beq	exit_label
+	beq	cant_move_cursor
 	inc	var1
 	lda	var2
 	clc
 	adc	#40
 	sta	var2
+	lda	#SFX_MOVE_CURSOR
+	bne	set_cursor_sfx_sound
+cant_move_cursor:
+	lda	#SFX_INVALID_ACTION
+set_cursor_sfx_sound:
+	sta	sq1_sfx_queue
 	jmp	exit_label
 .endmac
 
 .macro dec_cursor_pos var1, var2, exit_label
+.local set_cursor_sfx_sound, cant_move_cursor
 	lda	var1
-	beq	exit_label
+	beq	cant_move_cursor
 	dec	var1
 	lda	var2
 	sec
 	sbc	#40
 	sta	var2
+	lda	#SFX_MOVE_CURSOR
+	bne	set_cursor_sfx_sound
+cant_move_cursor:
+	lda	#SFX_INVALID_ACTION
+set_cursor_sfx_sound:
+	sta	sq1_sfx_queue
 	jmp	exit_label
 .endmac
 
