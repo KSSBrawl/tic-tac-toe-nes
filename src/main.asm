@@ -13,12 +13,12 @@
 	stx	PPUMASK			; turn off rendering
 	stx	DMCFREQ			; disable DMC IRQ
 
-@vblank1:
+vblank1:
 	bit	PPUSTATUS
-	bpl	@vblank1
+	bpl	vblank1
 
 	txa				; a = 0
-@clearram:
+clearram:
 	sta	$000,x
 	sta	$100,x
 	sta	$200,x
@@ -28,11 +28,11 @@
 	sta	$600,x
 	sta	$700,x
 	inx
-	bne	@clearram
+	bne	clearram
 
-@vblank2:
+vblank2:
 	bit	PPUSTATUS
-	bpl	@vblank2
+	bpl	vblank2
 
 	lda	#%10000000
 	sta	PPUCTRL
@@ -52,25 +52,25 @@
 
 	lda	#JOY_START
 	bit	joy_pressed
-	beq	@no_start_new_game
+	beq	no_start_new_game
 	jsr	start_new_game
-@no_start_new_game:
+no_start_new_game:
 	lda	game_state
-	bne	@game_over
+	bne	game_over
 	jsr	handle_turn
-	jmp	@mark_end_of_ppu_buf
-@game_over:
+	jmp	mark_end_of_ppu_buf
+game_over:
 	jsr	prepare_text
-@mark_end_of_ppu_buf:
+mark_end_of_ppu_buf:
 	ldx	ppu_upload_buf_ptr
 	lda	#0
 	sta	ppu_upload_buf_ptr,x
 
 	lda	#1
 	sta	nmi_switch
-@wait_for_nmi:
+wait_for_nmi:
 	lda	nmi_switch
-	bne	@wait_for_nmi
+	bne	wait_for_nmi
 
 	jmp	main
 .endproc
@@ -132,11 +132,11 @@
 	sta	work
 	lsr	a			; carry = 1
 	sta	JOY1
-@loop:
+loop:
 	lda	JOY1
 	lsr	a
 	rol	work
-	bcc	@loop
+	bcc	loop
 
 	lda	work
 	sta	work+2

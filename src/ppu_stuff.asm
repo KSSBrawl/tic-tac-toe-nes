@@ -5,11 +5,11 @@
 	sta	PPUADDR
 
 	ldx	#3
-@loop:
+loop:
 	lda	bg_palette,x
 	sta	PPUDATA
 	dex
-	bpl	@loop
+	bpl	loop
 
 	lda	#$3f
 	sta	PPUADDR
@@ -17,11 +17,11 @@
 	sta	PPUADDR
 
 	ldx	#2
-@loop2:
+loop2:
 	lda	obj_palette,x
 	sta	PPUDATA
 	dex
-	bpl	@loop2
+	bpl	loop2
 
 	rts
 
@@ -36,11 +36,11 @@ obj_palette:
 
 .proc upload_ppu_buf
 	ldx	#0
-@loop:
+loop:
 	lda	ppu_upload_buf,x
-	bne	@not_end_of_buf
-	beq	@done
-@not_end_of_buf:
+	bne	not_end_of_buf
+	beq	done
+not_end_of_buf:
 	inx
 	tay
 	bit	PPUSTATUS		; reset address latch
@@ -50,14 +50,14 @@ obj_palette:
 	lda	ppu_upload_buf,x
 	inx
 	sta	PPUADDR
-@entry_loop:
+entry_loop:
 	lda	ppu_upload_buf,x
 	inx
 	sta	PPUDATA
 	dey
-	bpl	@entry_loop
-	bne	@loop			; x = $ff, unconditional branch
-@done:
+	bpl	entry_loop
+	bne	loop			; x = $ff, unconditional branch
+done:
 	rts
 .endproc
 
@@ -76,34 +76,34 @@ obj_palette:
 	sta	upload_addr
 	lda	#.lobyte(board_nt_addr)
 	sta	upload_addr+1
-@row_start:
+row_start:
 	lda	upload_addr
 	sta	PPUADDR
 	lda	upload_addr+1
 	sta	PPUADDR
-@row_loop:
+row_loop:
 	lda	game_board_data,x
 	inx
 	cmp	#$ff			; is this the end of the row?
-	beq	@next_row
-	bpl	@not_tile_loop
+	beq	next_row
+	bpl	not_tile_loop
 	and	#$0f
 	sta	tile_loop_ctr
 	lda	game_board_data,x
 	inx
-@tile_loop:
+tile_loop:
 	sta	PPUDATA
 	dec	tile_loop_ctr
-	bne	@tile_loop
-	beq	@row_loop		; unconditional jump
-@not_tile_loop:
+	bne	tile_loop
+	beq	row_loop		; unconditional jump
+not_tile_loop:
 	sta	PPUDATA
-	bpl	@row_loop		; unconditional jump
-@next_row:
+	bpl	row_loop		; unconditional jump
+next_row:
 	cpx	#45
-	bne	@not_end_of_array
+	bne	not_end_of_array
 	ldx	#0
-@not_end_of_array:
+not_end_of_array:
 	lda	upload_addr+1
 	clc
 	adc	#32
@@ -113,7 +113,7 @@ obj_palette:
 	sta	upload_addr
 
 	dec	rows_left
-	bne	@row_start
+	bne	row_start
 
 	lda	#$1e
 	sta	PPUMASK
@@ -147,7 +147,7 @@ game_board_data:
 	sta	rows_left
 
 	ldy	#0
-@row_start:
+row_start:
 	lda	#3
 	sta	ppu_upload_buf,x
 	lda	upload_addr
@@ -155,33 +155,33 @@ game_board_data:
 	lda	upload_addr+1
 	sta	ppu_upload_buf+2,x
 	lda	new_game_ctrl
-	bne	@blank_tile
+	bne	blank_tile
 	lda	turn
 	and	#1
-	bne	@o_tile
-@x_tile:
+	bne	o_tile
+x_tile:
 .repeat	4, i
 	lda	x_tiles,y
 	iny
 	sta	ppu_upload_buf+3+i,x
 .endrep
-	bne	@next_row
+	bne	next_row
 
-@o_tile:
+o_tile:
 .repeat	4, i
 	lda	o_tiles,y
 	iny
 	sta	ppu_upload_buf+3+i,x
 .endrep
-	bne	@next_row
+	bne	next_row
 
-@blank_tile:
+blank_tile:
 	lda	#0
 .repeat 4, i
 	sta	ppu_upload_buf+3+i,x
 .endrep
 
-@next_row:
+next_row:
 	lda	upload_addr+1
 	clc
 	adc	#32
@@ -196,10 +196,10 @@ game_board_data:
 	tax
 
 	dec	rows_left
-	bpl	@row_start
+	bpl	row_start
 
 	stx	ppu_upload_buf_ptr
-@done:
+done:
 	rts
 
 x_tiles:

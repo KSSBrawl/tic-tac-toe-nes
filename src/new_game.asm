@@ -39,10 +39,10 @@
 	; reset board squares array
 	lda	#$ff
 	ldx	#008
-@squares_init_loop:
+squares_init_loop:
 	sta	board_squares,x
 	dex
-	bpl	@squares_init_loop
+	bpl	squares_init_loop
 
 ;-------------------------------------------------
 
@@ -52,13 +52,13 @@
 	lda	#0
 	sta	new_game_ctrl+1
 
-@clear_tiles_loop:
+clear_tiles_loop:
 	lda	new_game_ctrl+1
 	inc	new_game_ctrl+1
 	jsr	prepare_square
 
 	dec	new_game_ctrl
-	beq	@done_clearing_tiles
+	beq	done_clearing_tiles
 
 	ldx	ppu_upload_buf_ptr
 	lda	#0
@@ -66,12 +66,12 @@
 	
 	lda	#1
 	sta	nmi_switch
-@nmi_wait:
+nmi_wait:
 	lda	nmi_switch
-	bne	@nmi_wait
-	jmp	@clear_tiles_loop
+	bne	nmi_wait
+	jmp	clear_tiles_loop
 
-@done_clearing_tiles:
+done_clearing_tiles:
 	ldx	ppu_upload_buf_ptr
 	lda	#0
 	sta	ppu_upload_buf_ptr,x

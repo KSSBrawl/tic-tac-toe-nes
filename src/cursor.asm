@@ -24,31 +24,31 @@
 .proc update_cursor
 	lda	#JOY_R
 	bit	joy_pressed
-	bne	@move_r
+	bne	move_r
 	lda	#JOY_L
 	bit	joy_pressed
-	bne	@move_l
+	bne	move_l
 	lda	#JOY_D
 	bit	joy_pressed
-	bne	@move_d
+	bne	move_d
 	lda	#JOY_U
 	bit	joy_pressed
-	bne	@move_u
-	beq	@draw_cursor
+	bne	move_u
+	beq	draw_cursor
 
-@move_r:
-	inc_cursor_pos cursor_col, cursor_x, @draw_cursor
+move_r:
+	inc_cursor_pos cursor_col, cursor_x, draw_cursor
 
-@move_l:
-	dec_cursor_pos cursor_col, cursor_x, @draw_cursor
+move_l:
+	dec_cursor_pos cursor_col, cursor_x, draw_cursor
 
-@move_d:
-	inc_cursor_pos cursor_row, cursor_y, @draw_cursor
+move_d:
+	inc_cursor_pos cursor_row, cursor_y, draw_cursor
 
-@move_u:
-	dec_cursor_pos cursor_row, cursor_y, @draw_cursor
+move_u:
+	dec_cursor_pos cursor_row, cursor_y, draw_cursor
 
-@draw_cursor:
+draw_cursor:
 	lda	cursor_x
 	sta	spr_cursor_1+3
 	sta	spr_cursor_3+3
@@ -76,12 +76,12 @@
 	lda	cursor_ani_timer
 	inc	cursor_ani_timer
 	and	#%00010000		; check if 32 frames have passed since last animation frame
-	bne	@frame1
+	bne	frame1
 	lda	#$16
-	bne	@store_frame		; unconditional jump
-@frame1:
+	bne	store_frame		; unconditional jump
+frame1:
 	lda	#$17
-@store_frame:
+store_frame:
 	sta	spr_cursor_1+1
 	sta	spr_cursor_2+1
 	sta	spr_cursor_3+1
