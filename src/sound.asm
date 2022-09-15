@@ -1,5 +1,4 @@
 .proc sound_engine
-	lda	game_state
 	lda	sq1_sfx_queue
 	beq	handle_sq2_sfx
 	lsr	a
