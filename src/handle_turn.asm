@@ -41,6 +41,10 @@
 	lda	#JOY_A
 	bit	joy_pressed
 	bne	try_fill
+	beq	done			; unconditional jump
+square_already_filled:
+	lda	#SFX_INVALID_ACTION
+	sta	sq1_sfx_queue
 done:
 	rts
 try_fill:
@@ -51,12 +55,14 @@ try_fill:
 	sta	last_square
 	tax
 	lda	board_squares,x
-	bpl	done			; empty square is > $80
+	bpl	square_already_filled	; empty square is > $80
 	lda	turn
 	and	#$01
 	sta	board_squares,x
+
 	lda	#SFX_FILL_SQUARE
 	sta	sq1_sfx_queue
+
 	lda	last_square
 	jsr	prepare_square
 
