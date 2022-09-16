@@ -56,7 +56,7 @@ entry_loop:
 	sta	PPUDATA
 	dey
 	bpl	entry_loop
-	bne	loop			; x = $ff, unconditional branch
+	bne	loop			; y = $ff, unconditional branch
 done:
 	rts
 .endproc
