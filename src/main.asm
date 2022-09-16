@@ -46,6 +46,12 @@ vblank2:
 	jsr	prepare_board
 	jsr	start_new_game
 
+vblank3:
+	bit	PPUSTATUS
+	bpl	vblank3
+
+	lda	#$1e
+	sta	PPUMASK
 .endproc
 
 ;=================================================

@@ -10,6 +10,7 @@ cursor_row:			.res 1
 cursor_col:			.res 1
 
 board_squares:			.res 9
+
 turn:				.res 1
 last_square:			.res 1
 

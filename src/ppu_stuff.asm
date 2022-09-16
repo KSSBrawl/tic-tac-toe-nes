@@ -115,8 +115,6 @@ not_end_of_array:
 	dec	rows_left
 	bne	row_start
 
-	lda	#$1e
-	sta	PPUMASK
 	rts
 
 game_board_data:
@@ -257,9 +255,12 @@ copy_text:
 	sta	ppu_upload_buf+2,x
 .repeat 14, i
 	lda	game_over_text_data+i,y
-	sta	ppu_upload_buf+3,x
-	inx
+	sta	ppu_upload_buf+3+i,x
 .endrep
+	txa
+	clc
+	adc	#game_over_text_len+3
+	tax
 	stx	ppu_upload_buf_ptr
 	rts
 
