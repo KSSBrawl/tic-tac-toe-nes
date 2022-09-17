@@ -18,8 +18,13 @@ new_game_ctrl:			.res 2
 
 game_state:			.res 1
 
-ppu_upload_buf:			.res 64
+ppu_upload_buf:			.res 80
 ppu_upload_buf_ptr:		.res 1
+
+p1_score:			.res 1
+p1_score_digits:		.res 2
+p2_score:			.res 1
+p2_score_digits:		.res 2
 
 joy_pressed:			.res 1
 joy_held:			.res 1
@@ -38,3 +43,8 @@ oam:				.res 256
 .define spr_cursor_2		oam+ 4
 .define spr_cursor_3		oam+ 8
 .define	spr_cursor_4		oam+12
+
+.define spr_p1_score_digit_1    oam+16
+.define spr_p1_score_digit_2    oam+20
+.define spr_p2_score_digit_1    oam+24
+.define spr_p2_score_digit_2    oam+28

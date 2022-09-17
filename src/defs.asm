@@ -184,9 +184,17 @@
 ; Game-specific defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+.define board_nt_addr		$2000+9+(32*5)
 .define game_over_text_len	.strlen("PLAYER 1 WINS!")
-.define game_over_text_nt_addr	$2000+9+(32*18)
-.define board_nt_addr		$2000+9+(32* 2)
+.define game_over_text_nt_addr	board_nt_addr+(32*16)
+
+.define p1_score_text_x		080
+.define p1_score_text_y		016
+.define p2_score_text_x		160
+.define p2_score_text_y		016
+
+.define p1_score_nt_addr	$2000+(p1_score_text_x/8)+(p1_score_text_y*4)
+.define p2_score_nt_addr	$2000+(p2_score_text_x/8)+(p2_score_text_y*4)
 
 .define SFX_MOVE_CURSOR		%00000001
 .define SFX_INVALID_ACTION	%00000010

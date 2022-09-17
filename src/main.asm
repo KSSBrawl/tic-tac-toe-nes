@@ -50,6 +50,10 @@ vblank3:
 	bit	PPUSTATUS
 	bpl	vblank3
 
+	; TODO: find a better method of fixing a bug than this kludge
+	jsr	init_player_score_text
+	jsr	init_score
+
 	lda	#$1e
 	sta	PPUMASK
 .endproc
@@ -71,7 +75,14 @@ no_start_new_game:
 	jsr	handle_turn
 	jmp	mark_end_of_ppu_buf
 game_over:
+	lda	game_state
+	cmp	#3			; have we already performed game over tasks?
+	beq	mark_end_of_ppu_buf
+	sta	game_state
+	jsr	update_score
 	jsr	prepare_text
+	lda	#3
+	sta	game_state
 mark_end_of_ppu_buf:
 	ldx	ppu_upload_buf_ptr
 	lda	#0
@@ -93,17 +104,24 @@ wait_for_nmi:
 .proc nmi
 	php
 	pha
+	tya
+	pha
+	txa
+	pha
 
+	lda	ppu_upload_buf_ptr
+	beq	no_draw
 	jsr	upload_ppu_buf
+no_draw:
 	lda	#0
 	sta	ppu_upload_buf_ptr
 	sta	ppu_upload_buf		; mark upload buffer as empty
 
-	sta	nmi_switch		; = 0
-
 	bit	PPUSTATUS		; reset address latch
 	sta	PPUSCROLL
 	sta	PPUSCROLL
+
+	sta	nmi_switch
 
 	sta	OAMADDR
 	lda	#$02
@@ -112,6 +130,10 @@ wait_for_nmi:
 	lda	#%10000000
 	sta	PPUCTRL
 	
+	pla
+	tay
+	pla
+	tax
 	pla
 	plp
 	rti
@@ -131,6 +153,7 @@ wait_for_nmi:
 .include "handle_turn.asm"
 .include "new_game.asm"
 .include "ppu_stuff.asm"
+.include "score.asm"
 .include "sound.asm"
 
 ;=================================================

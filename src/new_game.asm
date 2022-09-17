@@ -33,7 +33,7 @@
 	sta	cursor_col
 	lda	#112
 	sta	cursor_x
-	lda	#055
+	lda	#079
 	sta	cursor_y
 
 	; reset board squares array

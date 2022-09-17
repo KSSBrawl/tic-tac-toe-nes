@@ -272,3 +272,44 @@ p2_wins_text:
 stalemate_text:
 	.byte	"     DRAW     "
 .endproc
+
+.proc init_player_score_text
+	ldx	ppu_upload_buf_ptr
+
+	lda	#p2_text-p1_text-1
+	sta	ppu_upload_buf,x
+	lda	#.hibyte(p1_score_nt_addr)
+	sta	ppu_upload_buf+1,x
+	lda	#.lobyte(p1_score_nt_addr)
+	sta	ppu_upload_buf+2,x
+.repeat 2, i
+	lda	p1_text+i
+	sta	ppu_upload_buf+3+i,x
+.endrep
+	txa
+	clc
+	adc	#p2_text-p1_text+3
+	tax
+
+	lda	#p2_text-p1_text-1
+	sta	ppu_upload_buf,x
+	lda	#.hibyte(p2_score_nt_addr)
+	sta	ppu_upload_buf+1,x
+	lda	#.lobyte(p2_score_nt_addr)
+	sta	ppu_upload_buf+2,x
+.repeat 2, i
+	lda	p2_text+i
+	sta	ppu_upload_buf+3+i,x
+.endrep
+	txa
+	clc
+	adc	#p2_text-p1_text+3
+	tax
+	stx	ppu_upload_buf_ptr
+	rts
+
+p1_text:
+	.byte	"P1"
+p2_text:
+	.byte	"P2"
+.endproc
