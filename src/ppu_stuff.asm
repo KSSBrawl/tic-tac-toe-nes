@@ -39,7 +39,7 @@ obj_palette:
 loop:
 	lda	ppu_upload_buf,x
 	bne	not_end_of_buf
-	beq	done
+	beq	done			; unconditional jump
 not_end_of_buf:
 	inx
 	tay
@@ -56,7 +56,7 @@ entry_loop:
 	sta	PPUDATA
 	dey
 	bpl	entry_loop
-	bne	loop			; y = $ff, unconditional branch
+	bne	loop			; y = $ff, unconditional jump
 done:
 	rts
 .endproc
