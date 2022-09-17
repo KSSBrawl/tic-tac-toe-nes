@@ -1,3 +1,7 @@
+.include "defs.asm"
+
+.export update_cursor
+
 .macro inc_cursor_pos var1, var2, exit_label
 .local set_cursor_sfx_sound, cant_move_cursor
 	lda	var1

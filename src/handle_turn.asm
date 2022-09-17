@@ -1,3 +1,7 @@
+.include "defs.asm"
+
+.export handle_turn
+
 .macro check_h_win row, col, no_win_label, win_label
 .if col <> 0
 	cmp	board_squares+(row*3)

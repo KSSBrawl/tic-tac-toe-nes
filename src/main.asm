@@ -1,5 +1,4 @@
 .include "defs.asm"
-.include "wram.asm"
 
 .segment "CODE"
 
@@ -39,23 +38,29 @@ vblank2:
 	lda	#$40
 	sta	APUFRAME
 
+	jsr	init_palettes
+	jsr	prepare_board
+	jsr	init_score_display
+
+	ldx	ppu_upload_buf_ptr
+	lda	#0
+	sta	ppu_upload_buf_ptr,X
+	jsr	upload_ppu_buf
+
 	lda	#%10000000
 	sta	PPUCTRL
 
-	jsr	init_palettes
-	jsr	prepare_board
-	jsr	start_new_game
-
+	lda	#1
+	sta	nmi_switch
 vblank3:
-	bit	PPUSTATUS
-	bpl	vblank3
+	lda	nmi_switch
+	bne	vblank3
 
-	; TODO: find a better method of fixing a bug than this kludge
-	jsr	init_player_score_text
-	jsr	init_score
-
-	lda	#$1e
-	sta	PPUMASK
+	lda	#%00011110		; enable background/sprite rendering,
+					; show background/sprites on leftmost 8 pixels of screen
+	sta	ppumask_shadow
+	
+	jsr	start_new_game
 .endproc
 
 ;=================================================
@@ -79,7 +84,7 @@ game_over:
 	cmp	#3			; have we already performed game over tasks?
 	beq	mark_end_of_ppu_buf
 	sta	game_state
-	jsr	update_score
+	jsr	update_score_display
 	jsr	prepare_text
 	lda	#3
 	sta	game_state
@@ -127,8 +132,8 @@ no_draw:
 	lda	#$02
 	sta	OAMDMA
 
-	lda	#%10000000
-	sta	PPUCTRL
+	lda	ppumask_shadow
+	sta	PPUMASK
 	
 	pla
 	tay
@@ -146,17 +151,7 @@ no_draw:
 	rti
 .endproc
 
-;=================================================
-;=================================================
-
-.include "cursor.asm"
-.include "handle_turn.asm"
-.include "new_game.asm"
-.include "ppu_stuff.asm"
-.include "score.asm"
-.include "sound.asm"
-
-;=================================================
+;=================================================@shadw
 ;=================================================
 
 .proc read_joypad

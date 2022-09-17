@@ -1,3 +1,11 @@
+.include "defs.asm"
+
+.export init_palettes
+.export upload_ppu_buf
+.export prepare_board
+.export prepare_square
+.export prepare_text
+
 .proc init_palettes
 	lda	#$3f
 	sta	PPUADDR
@@ -159,16 +167,14 @@ row_start:
 	bne	o_tile
 x_tile:
 .repeat	4, i
-	lda	x_tiles,y
-	iny
+	lda	x_tiles+i,y
 	sta	ppu_upload_buf+3+i,x
 .endrep
 	bne	next_row
 
 o_tile:
 .repeat	4, i
-	lda	o_tiles,y
-	iny
+	lda	o_tiles+i,y
 	sta	ppu_upload_buf+3+i,x
 .endrep
 	bne	next_row
@@ -271,45 +277,4 @@ p2_wins_text:
 	.byte	"PLAYER 2 WINS!"
 stalemate_text:
 	.byte	"     DRAW     "
-.endproc
-
-.proc init_player_score_text
-	ldx	ppu_upload_buf_ptr
-
-	lda	#p2_text-p1_text-1
-	sta	ppu_upload_buf,x
-	lda	#.hibyte(p1_score_nt_addr)
-	sta	ppu_upload_buf+1,x
-	lda	#.lobyte(p1_score_nt_addr)
-	sta	ppu_upload_buf+2,x
-.repeat 2, i
-	lda	p1_text+i
-	sta	ppu_upload_buf+3+i,x
-.endrep
-	txa
-	clc
-	adc	#p2_text-p1_text+3
-	tax
-
-	lda	#p2_text-p1_text-1
-	sta	ppu_upload_buf,x
-	lda	#.hibyte(p2_score_nt_addr)
-	sta	ppu_upload_buf+1,x
-	lda	#.lobyte(p2_score_nt_addr)
-	sta	ppu_upload_buf+2,x
-.repeat 2, i
-	lda	p2_text+i
-	sta	ppu_upload_buf+3+i,x
-.endrep
-	txa
-	clc
-	adc	#p2_text-p1_text+3
-	tax
-	stx	ppu_upload_buf_ptr
-	rts
-
-p1_text:
-	.byte	"P1"
-p2_text:
-	.byte	"P2"
 .endproc

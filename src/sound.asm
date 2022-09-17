@@ -1,3 +1,7 @@
+.include "defs.asm"
+
+.export sound_engine
+
 .proc sound_engine
 	lda	sq1_sfx_queue
 	beq	handle_sq2_sfx

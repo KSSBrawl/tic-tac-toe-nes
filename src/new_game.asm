@@ -1,3 +1,7 @@
+.include "defs.asm"
+
+.export start_new_game
+
 .proc start_new_game
 	lda	#0
 	sta	game_state

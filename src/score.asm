@@ -1,4 +1,27 @@
-.proc init_score
+.include "defs.asm"
+
+.export init_score_display
+.export update_score_display
+
+.proc init_score_display
+	bit	PPUSTATUS		; reset address latch
+	lda	#.hibyte(p1_score_nt_addr)
+	sta	PPUADDR
+	lda	#.lobyte(p1_score_nt_addr)
+	sta	PPUADDR
+	lda	#$50			; "P"
+	sta	PPUDATA
+	lda	#$31			; "1"
+	sta	PPUDATA
+	lda	#.hibyte(p2_score_nt_addr)
+	sta	PPUADDR
+	lda	#.lobyte(p2_score_nt_addr)
+	sta	PPUADDR
+	lda	#$50			; "P"
+	sta	PPUDATA
+	lda	#$32			; "2"
+	sta	PPUDATA
+
 	; write sprite
 	lda	#$30
 	sta	spr_p1_score_digit_1+1
@@ -26,13 +49,18 @@
 	sta	spr_p1_score_digit_2+2
 	sta	spr_p2_score_digit_1+2
 	sta	spr_p2_score_digit_2+2
+
+	lda	#$00
+	sta	OAMADDR
+	lda	#$02
+	sta	OAMDMA
 	rts
 .endproc
 
 ;=================================================
 ;=================================================
 
-.proc update_score
+.proc update_score_display
 	lda	game_state
 	cmp	#2
 	beq	done
