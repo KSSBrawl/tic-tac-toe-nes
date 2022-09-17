@@ -196,6 +196,7 @@ check_for_d_win_1:
 	bne	check_for_d_win_2
 	cmp	board_squares+8
 	bne	check_for_d_win_2
+	beq	win_found
 check_for_d_win_2:
 	cmp	board_squares+2
 	bne	no_win
