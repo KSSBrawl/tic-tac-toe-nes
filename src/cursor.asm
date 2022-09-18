@@ -1,19 +1,7 @@
 .include "defs.asm"
+.include "wram_global.asm"
 
-.export   update_cursor
-
-.importzp joy_pressed
-.importzp cursor_ani_timer
-.importzp cursor_col
-.importzp cursor_x
-.importzp cursor_row
-.importzp cursor_y
-.importzp sq1_sfx_queue
-
-.import   spr_cursor_1
-.import   spr_cursor_2
-.import   spr_cursor_3
-.import   spr_cursor_4
+.export update_cursor
 
 ;=================================================
 ;=================================================

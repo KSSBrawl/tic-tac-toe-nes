@@ -1,17 +1,11 @@
 .include "defs.asm"
+.include "wram_global.asm"
 
-.export   init_palettes
-.export   upload_ppu_buf
-.export   prepare_board
-.export   prepare_square
-.export   prepare_text
-
-.importzp ppu_upload_buf
-.importzp ppu_upload_buf_ptr
-.importzp work
-.importzp new_game_ctrl
-.importzp turn
-.importzp game_state
+.export init_palettes
+.export upload_ppu_buf
+.export prepare_board
+.export prepare_square
+.export prepare_text
 
 ;=================================================
 ;=================================================

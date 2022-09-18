@@ -51,6 +51,7 @@ DEPS := $(SRCS:.asm=.d)
 all: $(ROM)
 
 $(ROM): $(OBJS)
+	python3 gen_wram_global_file.py
 	$(LD) $(LDFLAGS) -o $@ -C tictactoe.cfg $^ -Ln syms.txt
 	python3 gen_fceux_syms.py
 

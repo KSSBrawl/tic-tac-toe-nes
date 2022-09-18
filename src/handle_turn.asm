@@ -1,17 +1,8 @@
 .include "defs.asm"
+.include "wram_global.asm"
 
-.export   handle_turn
-.import   prepare_square
-
-.importzp joy_pressed
-.importzp sq1_sfx_queue
-.importzp cursor_row
-.importzp cursor_col
-.importzp board_squares
-.importzp last_square
-.importzp turn
-.importzp game_state
-.importzp sq2_sfx_queue
+.export handle_turn
+.import prepare_square
 
 ;=================================================
 ;=================================================

@@ -5,3 +5,4 @@ tictactoe.nes.ram.nl
 tictactoe.nes.0.nl
 tictactoe.nes.deb
 syms.txt
+src/wram_global.asm

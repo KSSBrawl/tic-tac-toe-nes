@@ -1,11 +1,7 @@
 .include "defs.asm"
+.include "wram_global.asm"
 
-.export   sound_engine
-
-.importzp sq1_sfx_queue
-.importzp sq2_sfx_queue
-.importzp sq2_sfx_timer
-.importzp sq2_sfx_buf
+.export sound_engine
 
 ;=================================================
 ;=================================================

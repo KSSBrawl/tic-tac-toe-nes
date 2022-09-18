@@ -1,19 +1,8 @@
 .include "defs.asm"
+.include "wram_global.asm"
 
 .export   start_new_game
 .import   prepare_square
-
-.importzp new_game_ctrl
-.importzp nmi_switch
-.importzp board_squares
-.importzp cursor_x
-.importzp cursor_y
-.importzp cursor_row
-.importzp cursor_col
-.importzp ppu_upload_buf
-.importzp ppu_upload_buf_ptr
-.importzp turn
-.importzp game_state
 
 ;=================================================
 ;=================================================
