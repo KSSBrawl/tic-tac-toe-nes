@@ -15,7 +15,7 @@ ROM		:= tictactoe.nes
 # Flags
 ########################################
 
-ASFLAGS	:= --auto-import --cpu 6502 -g
+ASFLAGS	:= --cpu 6502 -g
 LDFLAGS :=
 
 ########################################
