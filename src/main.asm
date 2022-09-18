@@ -1,16 +1,16 @@
 .include "defs.asm"
 .include "wram_global.asm"
 
-.import   init_palettes
-.import   prepare_board
-.import   init_score_display
-.import   upload_ppu_buf
-.import   start_new_game
-.import   update_cursor
-.import   handle_turn
-.import   update_score_display
-.import   prepare_text
-.import   sound_engine
+.import init_palettes
+.import prepare_board
+.import init_score_display
+.import upload_ppu_buf
+.import start_new_game
+.import update_cursor
+.import handle_turn
+.import update_score_display
+.import prepare_text
+.import sound_engine
 
 ;=================================================
 ;=================================================

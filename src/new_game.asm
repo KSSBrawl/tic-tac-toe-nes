@@ -1,8 +1,8 @@
 .include "defs.asm"
 .include "wram_global.asm"
 
-.export   start_new_game
-.import   prepare_square
+.export start_new_game
+.import prepare_square
 
 ;=================================================
 ;=================================================
