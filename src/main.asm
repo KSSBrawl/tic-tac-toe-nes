@@ -1,5 +1,28 @@
 .include "defs.asm"
 
+.import   init_palettes
+.import   prepare_board
+.import   init_score_display
+.import   upload_ppu_buf
+.import   start_new_game
+.import   update_cursor
+.import   handle_turn
+.import   update_score_display
+.import   prepare_text
+.import   sound_engine
+
+.importzp work
+.importzp ppu_upload_buf
+.importzp ppu_upload_buf_ptr
+.importzp nmi_switch
+.importzp ppumask_shadow
+.importzp joy_held
+.importzp joy_pressed
+.importzp game_state
+
+;=================================================
+;=================================================
+
 .segment "CODE"
 
 .proc reset

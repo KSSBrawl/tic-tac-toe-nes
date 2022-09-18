@@ -1,6 +1,14 @@
 .include "defs.asm"
 
-.export sound_engine
+.export   sound_engine
+
+.importzp sq1_sfx_queue
+.importzp sq2_sfx_queue
+.importzp sq2_sfx_timer
+.importzp sq2_sfx_buf
+
+;=================================================
+;=================================================
 
 .proc sound_engine
 	lda	sq1_sfx_queue

@@ -15,7 +15,7 @@ ROM		:= tictactoe.nes
 # Flags
 ########################################
 
-ASFLAGS	:= --cpu 6502 --auto-import -g
+ASFLAGS	:= --auto-import --cpu 6502 -g
 LDFLAGS :=
 
 ########################################
@@ -29,6 +29,7 @@ SRC		:= src
 ########################################
 
 SRCS := \
+	$(SRC)/wram.asm \
 	$(SRC)/cursor.asm \
 	$(SRC)/handle_turn.asm \
 	$(SRC)/ines.asm \
@@ -36,8 +37,7 @@ SRCS := \
 	$(SRC)/new_game.asm \
 	$(SRC)/ppu_stuff.asm \
 	$(SRC)/score.asm \
-	$(SRC)/sound.asm \
-	$(SRC)/wram.asm
+	$(SRC)/sound.asm
 
 OBJS := $(SRCS:.asm=.o)
 DEPS := $(SRCS:.asm=.d)

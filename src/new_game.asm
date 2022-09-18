@@ -1,6 +1,22 @@
 .include "defs.asm"
 
-.export start_new_game
+.export   start_new_game
+.import   prepare_square
+
+.importzp new_game_ctrl
+.importzp nmi_switch
+.importzp board_squares
+.importzp cursor_x
+.importzp cursor_y
+.importzp cursor_row
+.importzp cursor_col
+.importzp ppu_upload_buf
+.importzp ppu_upload_buf_ptr
+.importzp turn
+.importzp game_state
+
+;=================================================
+;=================================================
 
 .proc start_new_game
 	lda	#0

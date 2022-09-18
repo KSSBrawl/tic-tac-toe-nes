@@ -1,4 +1,4 @@
-.segment "ZP_SEG"
+.zeropage
 
 nmi_switch:			.res 1
 .export nmi_switch

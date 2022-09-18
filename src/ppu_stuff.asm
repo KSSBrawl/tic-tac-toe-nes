@@ -1,10 +1,20 @@
 .include "defs.asm"
 
-.export init_palettes
-.export upload_ppu_buf
-.export prepare_board
-.export prepare_square
-.export prepare_text
+.export   init_palettes
+.export   upload_ppu_buf
+.export   prepare_board
+.export   prepare_square
+.export   prepare_text
+
+.importzp ppu_upload_buf
+.importzp ppu_upload_buf_ptr
+.importzp work
+.importzp new_game_ctrl
+.importzp turn
+.importzp game_state
+
+;=================================================
+;=================================================
 
 .proc init_palettes
 	lda	#$3f
@@ -167,14 +177,16 @@ row_start:
 	bne	o_tile
 x_tile:
 .repeat	4, i
-	lda	x_tiles+i,y
+	lda	x_tiles,y
+	iny
 	sta	ppu_upload_buf+3+i,x
 .endrep
 	bne	next_row
 
 o_tile:
 .repeat	4, i
-	lda	o_tiles+i,y
+	lda	o_tiles,y
+	iny
 	sta	ppu_upload_buf+3+i,x
 .endrep
 	bne	next_row

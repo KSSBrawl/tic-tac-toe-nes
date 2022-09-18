@@ -1,7 +1,22 @@
 .include "defs.asm"
 
-.export init_score_display
-.export update_score_display
+.export   init_score_display
+.export   update_score_display
+
+.importzp p1_score
+.importzp p1_score_digits
+.importzp p2_score
+.importzp p2_score_digits
+.importzp turn
+.importzp game_state
+
+.import   spr_p1_score_digit_1
+.import   spr_p1_score_digit_2
+.import   spr_p2_score_digit_1
+.import   spr_p2_score_digit_2
+
+;=================================================
+;=================================================
 
 .proc init_score_display
 	bit	PPUSTATUS		; reset address latch
