@@ -15,7 +15,7 @@
 ;=================================================
 ;=================================================
 
-.segment "CODE"
+.segment "BANK_E000"
 
 .proc reset
 	sei
@@ -43,6 +43,27 @@ clearram:
 	sta	$700,x
 	inx
 	bne	clearram
+
+	ldx	#14
+init_mmc3_loop:
+	lda	mmc3_init_tab,x
+	sta	MMC3BANKSEL
+	lda	mmc3_init_tab+1,x
+	sta	MMC3BANKDATA
+	dex
+	dex
+	bne	init_mmc3_loop
+	beq	vblank2			; unconditional jump
+
+mmc3_init_tab:
+	.byte	%00000101, 7
+	.byte	%00000100, 6
+	.byte	%00000011, 5
+	.byte	%00000010, 4
+	.byte	%00000001, 2
+	.byte	%00000000, 0
+	.byte	%00000111, 1
+	.byte	%00000110, 0
 
 vblank2:
 	bit	PPUSTATUS
@@ -76,10 +97,13 @@ vblank3:
 	sta	ppumask_shadow
 	
 	jsr	start_new_game
+	jmp	main
 .endproc
 
 ;=================================================
 ;=================================================
+
+.segment "CODE"
 
 .proc main
 	jsr	read_joypad
