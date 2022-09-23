@@ -172,7 +172,7 @@ no_draw:
 .proc read_joypad
 	lda	#$01
 	sta	JOY1
-	sta	work
+	tax
 	lsr	a			; carry = 1
 	sta	JOY1
 loop:
@@ -181,7 +181,7 @@ loop:
 	rol	work
 	bcc	loop
 
-	lda	work
+	txa
 	sta	work+2
 	eor	joy_held		; mask out buttons held on previous frame
 	and	work			; mask out buttons erroneously set by previous instruction

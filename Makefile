@@ -61,6 +61,6 @@ $(OBJS): %.o : %.asm
 	$(AS) $(ASFLAGS) --create-dep $(@:.o=.d) $< -o $@
 
 clean:
-	rm $(OBJS) $(DEPS) tictactoe.nes.0.nl tictactoe.nes.ram.nl syms.txt
+	rm $(OBJS) $(DEPS) $(SRC)/wram_global.asm tictactoe.nes.0.nl tictactoe.nes.ram.nl syms.txt
 	
 -include $(DEPS)
