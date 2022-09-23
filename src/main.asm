@@ -151,9 +151,9 @@ no_draw:
 	sta	PPUMASK
 	
 	pla
-	tay
-	pla
 	tax
+	pla
+	tay
 	pla
 	plp
 	rti
