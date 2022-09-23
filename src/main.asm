@@ -182,11 +182,10 @@ loop:
 	bcc	loop
 
 	lda	work
-	sta	work+2
 	eor	joy_held		; mask out buttons held on previous frame
 	and	work			; mask out buttons erroneously set by previous instruction
 	sta	joy_pressed
-	lda	work+2
+	lda	work
 	sta	joy_held
 	rts
 .endproc
