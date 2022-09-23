@@ -1,4 +1,4 @@
-.include "wram_global.asm"
+.include "wram_global.inc"
 
 .zeropage
 

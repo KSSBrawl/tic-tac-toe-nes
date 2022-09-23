@@ -1,5 +1,5 @@
-.include "defs.asm"
-.include "wram_global.asm"
+.include "game_defs.inc"
+.include "wram_global.inc"
 
 .import init_palettes
 .import prepare_board

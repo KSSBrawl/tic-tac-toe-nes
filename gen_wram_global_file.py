@@ -9,7 +9,7 @@ SEG_BSS      = 1
 
 def main():
 	wram_file = open( './src/wram.asm', 'r' )
-	glob_file = open( './src/wram_global.asm', 'w' )
+	glob_file = open( './src/wram_global.inc', 'w' )
 	sys.stdout = glob_file
 
 	segment = SEG_ZEROPAGE

@@ -1,5 +1,5 @@
-.ifndef __DEFS__
-	__DEFS__ = 1
+.ifndef __NES_DEFS__
+        __NES_DEFS__ = 1
 
 .define	JOY_A		1 << 7
 .define	JOY_B		1 << 6
@@ -194,26 +194,13 @@
 .define MMC3IRQON	$e001
 
 ;=================================================
-; Game-specific defines
+; Utility macros
 ;=================================================
 
-.define board_nt_addr		$2000+9+(32*5)
-.define game_over_text_len	.strlen("PLAYER 1 WINS!")
-.define game_over_text_nt_addr	board_nt_addr+(32*16)
+; Calculates absolute offset within the PPU nametable of x,y coordinates
+.define XY_TO_NT_ADDR(xc,yc)	$2000+(xc/8)+(yc*4)
 
-.define p1_score_text_x		080
-.define p1_score_text_y		016
-.define p2_score_text_x		160
-.define p2_score_text_y		016
-
-.define p1_score_nt_addr	$2000+(p1_score_text_x/8)+(p1_score_text_y*4)
-.define p2_score_nt_addr	$2000+(p2_score_text_x/8)+(p2_score_text_y*4)
-
-.define SFX_MOVE_CURSOR		%00000001
-.define SFX_INVALID_ACTION	%00000010
-.define SFX_FILL_SQUARE		%00000100
-
-.define	SFX_WIN			%00000001
-.define SFX_STALEMATE		%00000010
+; Calculates relative offset within the PPU nametable of x,y coordinates
+.define XY_TO_NT_COOR(xc,yc)	(xc/8)+(yc*4)
 
 .endif

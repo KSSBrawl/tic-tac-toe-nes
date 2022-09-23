@@ -1,5 +1,5 @@
-.include "defs.asm"
-.include "wram_global.asm"
+.include "game_defs.inc"
+.include "wram_global.inc"
 
 .export init_palettes
 .export upload_ppu_buf
@@ -226,17 +226,17 @@ o_tiles:
 
 square_addrs:
 	; row 1
-	.dbyt	board_nt_addr+ 0+(32* 0)
-	.dbyt	board_nt_addr+ 5+(32* 0)
-	.dbyt	board_nt_addr+10+(32* 0)
+	.dbyt	board_nt_addr+XY_TO_NT_COOR  0, 0
+	.dbyt	board_nt_addr+XY_TO_NT_COOR 40, 0
+	.dbyt	board_nt_addr+XY_TO_NT_COOR 80, 0
 	; row 2
-	.dbyt	board_nt_addr+ 0+(32* 5)
-	.dbyt	board_nt_addr+ 5+(32* 5)
-	.dbyt	board_nt_addr+10+(32* 5)
+	.dbyt	board_nt_addr+XY_TO_NT_COOR  0,40
+	.dbyt	board_nt_addr+XY_TO_NT_COOR 40,40
+	.dbyt	board_nt_addr+XY_TO_NT_COOR 80,40
 	; row 3
-	.dbyt	board_nt_addr+ 0+(32*10)
-	.dbyt	board_nt_addr+ 5+(32*10)
-	.dbyt	board_nt_addr+10+(32*10)
+	.dbyt	board_nt_addr+XY_TO_NT_COOR  0,80
+	.dbyt	board_nt_addr+XY_TO_NT_COOR 40,80
+	.dbyt	board_nt_addr+XY_TO_NT_COOR 80,80
 .endproc
 
 ;=================================================

@@ -1,5 +1,5 @@
-.include "defs.asm"
-.include "wram_global.asm"
+.include "game_defs.inc"
+.include "wram_global.inc"
 
 .export start_new_game
 .import prepare_square
@@ -19,19 +19,18 @@
 
 	lda	#game_over_text_len-1
 	sta	ppu_upload_buf,x
-	inx
 	lda	#.hibyte(game_over_text_nt_addr)
-	sta	ppu_upload_buf,x
-	inx
+	sta	ppu_upload_buf+1,x
 	lda	#.lobyte(game_over_text_nt_addr)
-	sta	ppu_upload_buf,x
-	inx
+	sta	ppu_upload_buf+2,x
 
-	lda	#$20
-.repeat 14
-	sta	ppu_upload_buf,x
-	inx
+	lda	#$20			; " " in ASCII
+.repeat 14, i
+	sta	ppu_upload_buf+3+i,x
 .endrep
+	txa
+	adc	#17			; carry is currently clear
+	tax
 	stx	ppu_upload_buf_ptr
 
 ;-------------------------------------------------
@@ -40,9 +39,9 @@
 	lda	#001
 	sta	cursor_row
 	sta	cursor_col
-	lda	#112
+	lda	#cursor_init_x
 	sta	cursor_x
-	lda	#079
+	lda	#cursor_init_y
 	sta	cursor_y
 
 	; reset board squares array
