@@ -87,12 +87,11 @@ check_win:
 	lda	#<(check_if_game_over-1)
 	pha
 
-	lda	win_check_tab+1,x
-	pha
 	lda	win_check_tab,x
-	pha
-
-	rts				; jump to win check subroutine
+	sta	win_jump_addr
+	lda	win_check_tab+1,x
+	sta	win_jump_addr+1
+	jmp	(win_jump_addr)
 
 check_if_game_over:
 	lda	game_state
@@ -112,15 +111,15 @@ done2:
 	rts
 
 win_check_tab:
-	.addr	check_win_square1-1
-	.addr	check_win_square2-1
-	.addr	check_win_square3-1
-	.addr	check_win_square4-1
-	.addr	check_win_square5-1
-	.addr	check_win_square6-1
-	.addr	check_win_square7-1
-	.addr	check_win_square8-1
-	.addr	check_win_square9-1
+	.addr	check_win_square1
+	.addr	check_win_square2
+	.addr	check_win_square3
+	.addr	check_win_square4
+	.addr	check_win_square5
+	.addr	check_win_square6
+	.addr	check_win_square7
+	.addr	check_win_square8
+	.addr	check_win_square9
 
 ; x * *
 ; * * .

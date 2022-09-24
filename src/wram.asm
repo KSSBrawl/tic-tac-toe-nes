@@ -4,6 +4,8 @@
 
 nmi_switch:			.res 1
 
+win_jump_addr:			.res 2
+
 work:				.res 3
 
 ppumask_shadow:			.res 1
