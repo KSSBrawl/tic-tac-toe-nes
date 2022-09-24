@@ -1,2 +1,0 @@
-ca65 --cpu 6502 -g --create-dep src/cursor.d src/cursor.asm -o src/cursor.o
-ca65 --cpu 6502 -g --create-dep src/handle_turn.d src/handle_turn.asm -o src/handle_turn.o
