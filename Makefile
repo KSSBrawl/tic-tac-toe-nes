@@ -30,6 +30,7 @@ SRC		:= src
 
 SRCS := \
 	$(SRC)/wram.asm \
+	$(SRC)/ai.asm \
 	$(SRC)/cursor.asm \
 	$(SRC)/handle_turn.asm \
 	$(SRC)/ines.asm \

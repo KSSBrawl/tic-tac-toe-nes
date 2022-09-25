@@ -11,6 +11,7 @@
 .import update_score_display
 .import prepare_text
 .import sound_engine
+.import run_ai
 
 ;=================================================
 ;=================================================
@@ -80,7 +81,7 @@ vblank2:
 
 	ldx	ppu_upload_buf_ptr
 	lda	#0
-	sta	ppu_upload_buf_ptr,X
+	sta	ppu_upload_buf_ptr,x
 	jsr	upload_ppu_buf
 
 	lda	#%10000000
@@ -97,6 +98,10 @@ vblank3:
 	sta	ppumask_shadow
 	
 	jsr	start_new_game
+
+	lda	#1
+	sta	ai_turn
+
 	jmp	main
 .endproc
 
@@ -116,13 +121,21 @@ vblank3:
 no_start_new_game:
 	lda	game_state
 	bne	game_over
+	lda	turn
+	and	#$01
+	cmp	ai_turn
+	bne	not_ai_turn
+	jsr	run_ai
+	jmp	end_of_turn
+not_ai_turn:
 	jsr	handle_turn
+end_of_turn:
 	jmp	mark_end_of_ppu_buf
 game_over:
 	lda	game_state
 	cmp	#3			; have we already performed game over tasks?
 	beq	mark_end_of_ppu_buf
-	sta	game_state
+	sta	sq2_sfx_queue
 	jsr	update_score_display
 	jsr	prepare_text
 	lda	#3

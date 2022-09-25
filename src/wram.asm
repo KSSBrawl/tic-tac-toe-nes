@@ -4,9 +4,11 @@
 
 nmi_switch:			.res 1
 
-win_jump_addr:			.res 2
+jump_addr:			.res 2
 
-work:				.res 3
+work:				.res 4
+
+ai_debug:			.res 4
 
 ppumask_shadow:			.res 1
 
@@ -15,8 +17,6 @@ cursor_y:			.res 1
 cursor_ani_timer:		.res 1
 cursor_row:			.res 1
 cursor_col:			.res 1
-
-board_squares:			.res 9
 
 turn:				.res 1
 
@@ -41,6 +41,8 @@ sq2_sfx_timer:			.res 1
 sq2_sfx_queue:			.res 1
 sq2_sfx_buf:			.res 1
 
+ai_turn:			.res 1
+
 .segment "OAM"
 
 spr_cursor_1:			.res 4
@@ -55,4 +57,4 @@ spr_p2_score_digit_2:		.res 4
 
 .bss
 
-; nothing here yet
+board_squares:			.res 9
