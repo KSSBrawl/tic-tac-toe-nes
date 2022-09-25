@@ -8,8 +8,6 @@ jump_addr:			.res 2
 
 work:				.res 4
 
-ai_debug:			.res 4
-
 ppumask_shadow:			.res 1
 
 cursor_x:			.res 1
